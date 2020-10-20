@@ -1,0 +1,22 @@
+<button nz-button nzType="primary" (click)="onLoadData()">
+  <i nz-icon nzType="redo" nzTheme="outline"></i> Reload
+</button>
+&nbsp;
+<br>
+<br>&nbsp;
+<nz-table #basicTable [nzLoading]="loadingTbl" [nzData]="listOfData" [nzPageSize]="10" [nzScroll]="{ y: '300px' }">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Title</th>
+      <th>Text</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.status }}</td>
+      <td>{{ data.title }}</td>
+      <td>{{ data.text }}</td>
+    </tr>
+  </tbody>
+</nz-table>

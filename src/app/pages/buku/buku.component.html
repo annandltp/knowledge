@@ -1,0 +1,91 @@
+<button nz-button nzType="primary" (click)="onLoadData()">
+  <i nz-icon nzType="redo" nzTheme="outline"></i> Reload
+</button>
+&nbsp;
+<button nz-button nzType="primary" (click)="onAddNew()">
+  <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+  Add New Buku
+</button>
+<br>
+<br>&nbsp;
+<nz-table #basicTable [nzLoading]="loadingTbl" [nzData]="listOfData">
+  <thead>
+    <tr>
+      <th>Judul Buku</th>
+      <th>Pengarang</th>
+      <th>Penerbit</th>
+      <th>Tahun Terbit</th>
+      <th>Sinopsis</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.judul_buku }}</td>
+      <td>{{ data.pengarang }}</td>
+      <td>{{ data.penerbit }}</td>
+      <td>{{ data.tahun_terbit }}</td>
+      <td>{{ data.sinopsis }}</td>
+      <td>
+        <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.key)">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+
+<nz-drawer [nzClosable]="true" [nzVisible]="visible" nzPlacement="right" [nzWidth]="700" nzTitle="Form Member"
+  (nzOnClose)="onClose()">
+  <form nz-form [nzLayout]="'horizontal'">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">Judul Buku</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <nz-input-group>
+          <input type="text" nz-input [(ngModel)]="fBuku.judul_buku" name="judul_buku" placeholder="Enter Judul Buku" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">Pengarang</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input [(ngModel)]="fBuku.pengarang" name="pengarang" type="text" placeholder="Enter Pengarang" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">Penerbit</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input [(ngModel)]="fBuku.penerbit" name="penerbit" type="text" placeholder="Enter Penerbit" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">Tahun Terbit</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input [(ngModel)]="fBuku.tahun_terbit" name="tahun_terbit" type="number"
+          placeholder="Enter Tahun Terbit" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">Sinopsis</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <textarea nz-input [(ngModel)]="fBuku.sinopsis" name="sinopsis" placeholder="Enter Sinopsis"
+          id="sinopsis"> </textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+  <div style="position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      borderTop: 1px solid #e9e9e9;
+      padding: 10px 16px;
+      background: #fff;
+      textAlign: right;
+      zIndex: 1 ;">
+
+    <button nz-button (click)="onClose()" :style=" marginRight: '8px' "> Cancel </button>
+    <button nz-button (click)="onSaveData()" nzType="primary"> Submit </button>
+  </div>
+
+</nz-drawer>

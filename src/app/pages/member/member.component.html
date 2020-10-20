@@ -1,0 +1,82 @@
+<button nz-button nzType="primary" (click)="onLoadData()">
+  <i nz-icon nzType="redo" nzTheme="outline"></i> Reload
+</button>
+&nbsp;
+<button nz-button nzType="primary" (click)="onAddNew()">
+<i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+Add New Member
+</button>
+<br>
+<br>&nbsp;
+<nz-table #basicTable [nzLoading]="loadingTbl" [nzData]="listOfData"
+[nzPageSize]="10" [nzScroll]="{ y: '300px' }">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Address</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.name }}</td>
+      <td>{{ data.age }}</td>
+      <td>{{ data.address }}</td>
+      <td nzRight>
+        <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data)">Delete</a>
+        | <a (click)="onEdit(data)">Edit</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+
+<nz-drawer 
+  [nzClosable]="true" 
+  [nzVisible]="visible" 
+  nzPlacement="right" 
+  [nzWidth]="700"
+  nzTitle="Form Member" 
+  (nzOnClose)="onClose()">
+  <form nz-form [nzLayout]="'horizontal'">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">Name</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <nz-input-group nzPrefixIcon="user">
+          <input type="text" nz-input [(ngModel)]="fMember.name" name="name" placeholder="Enter Name" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item >
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">Age</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input [(ngModel)]="fMember.age" name="age" type="number" placeholder="Enter Age"/>
+      </nz-form-control>
+    </nz-form-item >
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">Addres</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <textarea nz-input [(ngModel)]="fMember.address" name="address" placeholder="Enter Address" id="address"> </textarea>
+      </nz-form-control>
+    </nz-form-item >
+  </form>
+
+  <div style="position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    borderTop: 1px solid #e9e9e9;
+    padding: 10px 16px;
+    background: #fff;
+    textAlign: right;
+    zIndex: 1 ;">
+
+    <button nz-button (click)="onClose()" :style=" marginRight: '8px' "> Cancel </button>
+    <button nz-button (click)="onSaveData()" nzType="primary" > Submit </button>
+  </div>
+    
+</nz-drawer>
+

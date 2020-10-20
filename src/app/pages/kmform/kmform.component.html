@@ -1,0 +1,74 @@
+<button nz-button nzType="primary" (click)="onLoadData()">
+  <i nz-icon nzType="redo" nzTheme="outline"></i> Reload
+</button>
+&nbsp;
+<button nz-button nzType="primary" (click)="onAddNew()">
+  <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+  Add New Kmform
+</button>
+<br>
+<br>&nbsp;
+<nz-table #basicTable [nzLoading]="loadingTbl" [nzData]="listOfData" [nzPageSize]="10" [nzScroll]="{ y: '300px' }">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Title</th>
+      <th>Text</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.status }}</td>
+      <td>{{ data.title }}</td>
+      <td>{{ data.text }}</td>
+      <td nzRight>
+        <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data)">Delete</a>
+        | <a (click)="onEdit(data)">Edit</a>
+        | <a (click)="onEditPublish(data)">Unpublish</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<nz-drawer [nzClosable]="true" [nzVisible]="visible" nzPlacement="right" [nzWidth]="700" nzTitle="Form Kmform"
+  (nzOnClose)="onClose()">
+  <form nz-form [nzLayout]="'horizontal'">
+    <nz-form-item style="display:none;">
+      <nz-form-label [nzSpan]=" 6" nzFor="name">Status</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input [(ngModel)]="fKmform.status" name="status" type="number" placeholder="Enter Status" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">Text</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <div [(froalaModel)]="fKmform.text" [froalaEditor]>Hello, Froala!</div>
+        <!-- <textarea nz-input [(ngModel)]="fKmform.text" name="text" placeholder="Enter Text"></textarea> -->
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">Title</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input [(ngModel)]="fKmform.title" name="title" type="text" placeholder="Enter Title" />
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+  <div style="position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      borderTop: 1px solid #e9e9e9;
+      padding: 10px 16px;
+      background: #fff;
+      textAlign: right;
+      zIndex: 1 ;">
+
+    <button nz-button (click)="onClose()" :style=" marginRight: '8px' "> Cancel </button>
+    <button nz-button (click)="onSaveData()" nzType="primary"> Submit </button>
+  </div>
+
+</nz-drawer>
